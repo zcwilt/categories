@@ -292,9 +292,11 @@ trait Categorizable
         return (array) $categories;
     }
 
-    public function getRinvexModelKey()
+    /**
+     * @return string
+     */
+    public function getRinvexModelKey(): string
     {
-        return 'category';
+        return config('rinvex.categories.default-model', 'category');
     }
-
 }

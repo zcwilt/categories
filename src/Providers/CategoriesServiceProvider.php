@@ -32,8 +32,10 @@ class CategoriesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.categories');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.categories.category', $categoryModel = $this->app['config']['rinvex.categories.models.category']);
-        $categoryModel === Category::class || $this->app->alias('rinvex.categories.category', Category::class);
+        foreach (config('rinvex.categories.models', []) as $modelKey => $modelName) {
+            $this->app->singleton('rinvex.categories.'.$modelKey, $modelName);
+        }
+//        $categoryModel === Category::class || $this->app->alias('rinvex.categories.category', Category::class);
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
