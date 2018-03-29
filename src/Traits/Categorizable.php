@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 trait Categorizable
 {
+
+    public static $rinvexModelKey = 'category';
+
     /**
      * Register a saved model event with the dispatcher.
      *
@@ -55,7 +58,7 @@ trait Categorizable
      */
     public function categories(): MorphToMany
     {
-        return $this->morphToMany(config('rinvex.categories.models.category'), 'categorizable', config('rinvex.categories.tables.categorizables'), 'categorizable_id', 'category_id')
+        return $this->morphToMany(config('rinvex.categories.models.' . self::$rinvexModelKey), 'categorizable', config('rinvex.categories.tables.categorizables'), 'categorizable_id', 'category_id')
                     ->withTimestamps();
     }
 
@@ -273,7 +276,7 @@ trait Categorizable
         }
 
         if (is_array($categories) && is_string(array_first($categories))) {
-            $categories = app('rinvex.categories.category')->whereIn('slug', $categories)->get()->pluck('id');
+            $categories = app('rinvex.categories.' . self::$rinvexModelKey)->whereIn('slug', $categories)->get()->pluck('id');
         }
 
         if ($categories instanceof Model) {
