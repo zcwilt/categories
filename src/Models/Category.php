@@ -10,7 +10,7 @@ use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Rinvex\Support\Traits\HasTranslations;
+use App\Support\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Rinvex\Categories\Builders\EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
